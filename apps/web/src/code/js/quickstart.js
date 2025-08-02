@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-unused-expressions */
-import { Sandbox } from 'e2b'
+import { Sandbox } from '@e2b/code-interpreter'
 
 // 1. Start cloud playground
 const sandbox = await Sandbox.create({
