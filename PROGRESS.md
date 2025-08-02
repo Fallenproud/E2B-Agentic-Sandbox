@@ -18,5 +18,6 @@ This document tracks progress for building an agentic sandbox environment and ma
 
 ## Diagnostics
 - [x] Run workspace linting; resolved apps/web issues by refactoring enums and tidying snippets.
+- [x] Ensure workspace dependencies are installed via `pnpm install`.
 - [ ] Resolve `pnpm --filter e2b test` failures in `packages/js-sdk`; Playwright browsers and system deps installed but API calls fail without an E2B API key.
 
