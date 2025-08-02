@@ -10,11 +10,15 @@ This document tracks progress for building an agentic sandbox environment and ma
 - [ ] Document setup instructions and operational guidelines.
 
 ## Next Steps
-- [ ] Design a microservice architecture to isolate agent sandboxes and simplify scaling.
-- [ ] Employ a message queue (e.g., RabbitMQ or Kafka) for communication between agents and the dashboard.
-- [ ] Track metrics such as CPU, memory, and request counts for each agent to support analytics.
-- [ ] Integrate role-based access control for administrative and external API users.
 - [ ] Evaluate frameworks (e.g., FastAPI, Next.js) for building the API proxy and dashboard UI.
+- [ ] Prototype services based on the architecture plan.
+- [ ] Implement message queue, metrics collection, and RBAC.
+
+## Architecture Plan
+- [x] Microservice architecture isolates sandboxes and simplifies scaling. See `ARCHITECTURE.md`.
+- [x] Message queue (RabbitMQ or Kafka) handles communication between agents and the dashboard.
+- [x] Metrics track CPU, memory, and request counts for each agent.
+- [x] Role-based access control distinguishes administrative and external API users.
 
 ## Diagnostics
 - [x] Run workspace linting; resolved apps/web issues by refactoring enums and tidying snippets.
