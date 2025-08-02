@@ -1,4 +1,5 @@
-import { Sandbox } from 'e2b'
+import 'dotenv/config'
+import { Sandbox } from '@e2b/code-interpreter'
 
-const sandbox = await Sandbox.create({ apiKey: 'YOUR_API_KEY' })
+const sandbox = await Sandbox.create()
 await sandbox.close()
