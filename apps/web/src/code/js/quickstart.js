@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import { Sandbox } from 'e2b'
 
 // 1. Start cloud playground
