@@ -18,5 +18,5 @@ This document tracks progress for building an agentic sandbox environment and ma
 
 ## Diagnostics
 - [x] Run workspace linting; resolved apps/web issues by refactoring enums and tidying snippets.
-- [ ] Fix `pnpm test` failing in `packages/js-sdk` (vite:dep-scan crash, potential Playwright setup).
+- [ ] Resolve `pnpm --filter e2b test` failures in `packages/js-sdk`; Playwright browsers and system deps installed but API calls fail without an E2B API key.
 
