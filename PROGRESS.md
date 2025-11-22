@@ -14,6 +14,16 @@ This document tracks progress for building an agentic sandbox environment and ma
 - [ ] Prototype services based on the architecture plan.
 - [ ] Implement message queue, metrics collection, and RBAC.
 
+## Implementation Plan
+- [x] Design microservice architecture to isolate agent sandboxes and simplify scaling. Documented in `ARCHITECTURE.md` with service boundaries, queue topology, and scaling notes.
+- [x] Employ a message queue (RabbitMQ or Kafka) for communication between agents and the dashboard. Topics and consumers captured in `ARCHITECTURE.md`.
+- [x] Track metrics such as CPU, memory, and request counts for each agent to support analytics. Collection and rollups described in `ARCHITECTURE.md`.
+- [x] Integrate role-based access control for administrative and external API users. RBAC flows and key management captured in `ARCHITECTURE.md`.
+- [ ] Implement sandboxes with sidecar publishers that emit heartbeats, metrics, and results to the queue.
+- [ ] Stand up the metrics service with time-series storage and rollup endpoints for the dashboard.
+- [ ] Build the auth service with JWT issuance, API key rotation, and queue-based revocation broadcasts.
+- [ ] Integrate the dashboard/proxy with the queue and auth service, wiring per-tenant limits and observability widgets.
+
 ## Architecture Plan
 - [x] Microservice architecture isolates sandboxes and simplifies scaling. See `ARCHITECTURE.md`.
 - [x] Message queue (RabbitMQ or Kafka) handles communication between agents and the dashboard.
