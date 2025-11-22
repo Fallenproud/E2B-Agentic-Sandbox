@@ -4,15 +4,39 @@ This document tracks progress for building an agentic sandbox environment and ma
 
 ## Goals
 - [ ] Configure sandbox environments for diverse agents.
+  - [ ] Define per-agent resource profiles (CPU/memory/timeouts) and isolation guarantees.
+  - [ ] Ship a reference template that demonstrates Python, JavaScript, and LLM toolchains.
+  - [ ] Validate lifecycle hooks (create/heartbeat/terminate) against the queue contract.
 - [ ] Build administrative dashboard for monitoring agents and usage.
+  - [ ] Wire dashboards to metrics rollups (current, 1/5/60 min) and sandbox state cache.
+  - [ ] Provide controls for drain, terminate, replay logs, and manual budget adjustments.
+  - [ ] Add per-tenant filters and role-aware views for support vs. admin users.
 - [ ] Implement API key management with real-time analytics.
+  - [ ] Deliver key issuance/rotation flows with audit trails and revocation broadcasts.
+  - [ ] Display live request counts, error rates, and rate-limit status per key.
+  - [ ] Expose webhook/stream for key lifecycle events to downstream systems.
 - [ ] Provide external API access via a proxy and UI for management.
+  - [ ] Proxy calls through auth and queue publishing, enforcing rate and scope policies.
+  - [ ] Offer UI self-service for key creation, scope assignment, and quota tuning.
+  - [ ] Publish proxy health, latency, and saturation metrics to the dashboard.
 - [ ] Document setup instructions and operational guidelines.
+  - [ ] Produce runbooks for local dev, staging, and production deployments.
+  - [ ] Include observability/alert playbooks and SLO definitions per service.
+  - [ ] Capture onboarding guide for new contributors (queue, auth, sandbox flows).
 
 ## Next Steps
 - [ ] Evaluate frameworks (e.g., FastAPI, Next.js) for building the API proxy and dashboard UI.
+  - [ ] Compare FastAPI vs. NestJS for proxy/API services (auth, rate limiters, tracing).
+  - [ ] Compare Next.js vs. Remix for dashboard SSR and design system integration.
+  - [ ] Document the decision in `ARCHITECTURE.md` with tradeoffs and chosen stack.
 - [ ] Prototype services based on the architecture plan.
+  - [ ] Deliver sandbox sidecar prototype emitting heartbeats, metrics, and result chunks.
+  - [ ] Stand up a thin metrics service ingesting batches into a TSDB with rollup endpoints.
+  - [ ] Ship a minimal auth service issuing JWTs and broadcasting key revocations.
 - [ ] Implement message queue, metrics collection, and RBAC.
+  - [ ] Establish queue schemas, retention, and dead-letter policies for all topics.
+  - [ ] Enforce RBAC in the proxy and dashboard using cached introspection results.
+  - [ ] Verify metrics ingest/rollup and RBAC flows under load/perf tests.
 
 ## Implementation Plan
 - [x] Design microservice architecture to isolate agent sandboxes and simplify scaling. Documented in `ARCHITECTURE.md` with service boundaries, queue topology, and scaling notes.
