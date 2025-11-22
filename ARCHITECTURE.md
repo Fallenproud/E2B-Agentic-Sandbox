@@ -57,3 +57,27 @@ The auth service maintains user roles (e.g., admin, standard user, read-only). A
 - Long-lived API keys for external automation; keys map to service accounts with scoped permissions.
 - Rotation policy enforced via the auth service with automatic revocation broadcasts over the queue.
 
+## Implementation Playbook (remaining milestones)
+
+### Sandbox sidecar
+- Emit `sandbox.events` (created/ready/terminated) and heartbeat pings with sandbox ID, tenant, and timestamp.
+- Batch metrics to `metrics.ingest` every 15–30 seconds with CPU, memory, request counts, and queue lag plus sequence numbers for deduplication.
+- Stream execution output to `sandbox.results` with chunk IDs to support replay in the dashboard.
+- Expose a minimal HTTP endpoint for liveness and a control endpoint to request graceful shutdowns from the dashboard.
+
+### Metrics service
+- Accept metric batches from the queue and validate sequence numbers to drop stale messages.
+- Write samples to a time-series store (TimescaleDB or ClickHouse) keyed by sandbox, tenant, and timestamp.
+- Provide rollup endpoints: current health, 1/5/60-minute CPU & memory averages, p95/p99 latency, and request error rates.
+- Emit alerts or anomaly events back to the queue for the dashboard to surface in real time.
+
+### Auth service
+- Sign JWTs with rotating keys (JWK set) and publish key-rotation events so services can refresh caches.
+- Maintain API key hashes with scopes; publish revocation messages consumed by the dashboard proxy and sandbox service.
+- Offer token introspection and impersonation-for-support endpoints guarded by admin roles; audit all privileged calls to `audit.auth`.
+
+### Dashboard / API proxy
+- Subscribe to `sandbox.events` and `sandbox.results` for live views; persist last-known state in a cache (Redis) for fast reloads.
+- Enforce rate limits and scopes from the auth service; cache introspection results with short TTLs.
+- Integrate metrics rollups for per-tenant limits, budget alerts, and uptime widgets.
+- Add administrative controls to drain/terminate sandboxes and replay execution logs from `sandbox.results`.

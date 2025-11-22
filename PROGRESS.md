@@ -20,9 +20,21 @@ This document tracks progress for building an agentic sandbox environment and ma
 - [x] Track metrics such as CPU, memory, and request counts for each agent to support analytics. Collection and rollups described in `ARCHITECTURE.md`.
 - [x] Integrate role-based access control for administrative and external API users. RBAC flows and key management captured in `ARCHITECTURE.md`.
 - [ ] Implement sandboxes with sidecar publishers that emit heartbeats, metrics, and results to the queue.
+  - [ ] Emit lifecycle events and heartbeats with sandbox ID, tenant, and timestamps.
+  - [ ] Batch metrics (CPU, memory, request counts, queue lag) with sequence numbers to `metrics.ingest`.
+  - [ ] Stream execution output to `sandbox.results` with chunk IDs for replay.
 - [ ] Stand up the metrics service with time-series storage and rollup endpoints for the dashboard.
+  - [ ] Consume metric batches, enforce sequence ordering, and persist to TSDB (TimescaleDB/ClickHouse).
+  - [ ] Expose rollups for current health, 1/5/60-minute CPU & memory, latency p95/p99, and error rates.
+  - [ ] Emit alerts/anomaly events back to the queue for dashboard surfacing.
 - [ ] Build the auth service with JWT issuance, API key rotation, and queue-based revocation broadcasts.
+  - [ ] Provide JWK set rotation and token introspection endpoints; audit privileged calls.
+  - [ ] Store hashed API keys with scopes and publish revocations to consumers.
+  - [ ] Enforce RBAC for admin/support impersonation workflows.
 - [ ] Integrate the dashboard/proxy with the queue and auth service, wiring per-tenant limits and observability widgets.
+  - [ ] Subscribe to sandbox events/results; cache last-known state in Redis for fast reloads.
+  - [ ] Enforce rate limits and scopes with cached introspection results.
+  - [ ] Surface metrics rollups, budget alerts, uptime widgets, and admin controls (drain/terminate/replay logs).
 
 ## Architecture Plan
 - [x] Microservice architecture isolates sandboxes and simplifies scaling. See `ARCHITECTURE.md`.
