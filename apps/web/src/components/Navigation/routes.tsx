@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-duplicate-enum-values */
 import {
   Braces,
   CheckCircle,
@@ -7,9 +8,7 @@ import {
 } from 'lucide-react'
 import sdkRefRoutesJson from './sdkRefRoutes.json'
 
-enum Tag {
-  New = 'New',
-}
+type Tag = 'New'
 
 export interface NavLink {
   title: string

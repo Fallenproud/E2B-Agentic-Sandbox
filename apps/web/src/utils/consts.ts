@@ -15,10 +15,11 @@ export const tiers = {
 // - use `javascript` for explicitly JavaScript
 // - use `typescript` for explicitly TypeScript
 
-export enum LangShort {
-  js = 'js',
-  py = 'py',
-}
+export const LangShort = {
+  js: 'js',
+  py: 'py',
+} as const
+export type LangShort = (typeof LangShort)[keyof typeof LangShort]
 
 export const docsSandboxName = 'docs'
 
